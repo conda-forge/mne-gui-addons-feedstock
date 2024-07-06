@@ -12,7 +12,7 @@ source:
 build:
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv
-  number: 0
+  number: 1
 
 requirements:
   host:
@@ -25,7 +25,6 @@ requirements:
     - python >=3.8
     - packaging
     - qtpy
-    - pyqt
     - pyvista
     - pyvistaqt
     - vtk
@@ -37,6 +36,8 @@ requirements:
     - setuptools >=65
 
 test:
+  requires:
+    - pyside6
   imports:
     # VTK import is broken on Windows so don't try to import there
     - mne_gui_addons  # [not win]
