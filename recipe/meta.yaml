@@ -6,23 +6,23 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/mne-gui-addons-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/mne-gui-addons-{{ version }}.tar.gz
   sha256: 0f5231065e823f051d9df09077b866cf27bda91a4582b280dfeaa725550c4ab7
 
 build:
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv
-  number: 1
+  number: 2
 
 requirements:
   host:
-    - python >=3.8
+    - python {{ python_min }}
     - setuptools >=45
     - setuptools-scm >=6.2
     - wheel
     - pip
   run:
-    - python >=3.8
+    - python >={{ python_min }}
     - packaging
     - qtpy
     - pyvista
@@ -38,6 +38,7 @@ requirements:
 test:
   requires:
     - pyside6
+    - python {{ python_min }}
   imports:
     # VTK import is broken on Windows so don't try to import there
     - mne_gui_addons  # [not win]
@@ -46,6 +47,7 @@ test:
   requires:
     - pip
     - setuptools
+    - python {{ python_min }}
 
 about:
   home: https://pypi.org/project/mne-gui-addons/
